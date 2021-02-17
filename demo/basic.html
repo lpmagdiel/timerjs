@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic</title>
+</head>
+<body>
+    <h1 id="counter">00:00:00</h1>
+    <script src="../dist/timer.js"></script>
+    <script>
+        const timer = new Timer();
+        const t = timer.Create(true);
+        const counter = document.getElementById('counter');
+        t.tick = time=>{
+            counter.innerText = `🕒 ${time.hours}:${time.minutes}:${time.seconds}`;
+        }
+    </script>
+</body>
+</html>
