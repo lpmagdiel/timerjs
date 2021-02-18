@@ -14,8 +14,7 @@ Creates a new clock, receives an optional boolean parameter indicating whether t
  - id       : int
  - active   : boolean
  - created  : boolean
- - hours    : int
- - minutes  : int
+ - getTime  : function
  - seconds  : int
  - tick     : function
  - reset    : function
@@ -26,6 +25,13 @@ Creates a new clock, receives an optional boolean parameter indicating whether t
     const clock = timer.Create(true);
 
     clock.reset();
+
+## getTime function example
+
+    const timer = new Timer();
+    const clock = timer.Create(true);
+
+    console.log(clock.getTime()); // return object {hours:int,minutes:int,seconds:int}
 
 ## tick function example
 

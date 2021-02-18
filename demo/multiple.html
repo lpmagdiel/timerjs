@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiples</title>
+    <style>
+        .clockBox{
+            box-sizing: border-box;
+            width: 100px;
+            height: 150px;
+            background-color: whitesmoke;
+            border-radius: 5px;
+            display: inline-block;
+            margin:10px;
+            text-align: center;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn-create">Create New Clock 😊</button>
+    <br>
+    <template>
+        <div class="clockBox">
+            <h1>🕒</h1>
+            <p>0:0:0</p>
+        </div>
+    </template>
+    <script src="../dist/timer.js"></script>
+    <script>
+        const timer = new Timer();
+        const createButton = document.getElementById('btn-create');
+        createButton.addEventListener('click',e=>{
+            let temp = document.getElementsByTagName("template")[0];
+            let t = timer.Create(true);
+            temp.content.querySelector("p").id = 'id'+t.id;
+            t.tick = time=>{
+                document.getElementById('id'+t.id).innerText = `${time.hours}:${time.minutes}:${time.seconds}`;
+            }
+            let clon = temp.content.cloneNode(true);
+            document.body.appendChild(clon);
+        });
+    </script>
+</body>
+</html>

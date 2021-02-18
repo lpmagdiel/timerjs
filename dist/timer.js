@@ -34,14 +34,16 @@ class Timer{
         let clock = {
             created: dt.getFullYear()+'-'+m+'-'+d,
             seconds: 0,
-            minutes: 0,
-            hours: 0,
+            getTime: function(){
+                const m = Math.floor((this.seconds / 60) % 60);
+                const h = Math.floor(this.seconds / 3600);
+                const s = this.seconds % 60;
+                return {seconds:s,minutes:m,hours:h};
+            },
             id: Date.now(),
             active:activate,
             reset: function(){
                 this.seconds=0;
-                this.minutes=0;
-                this.hours=0;
             },
             tick:null
         }
@@ -52,16 +54,8 @@ class Timer{
         for (let i=0;i<this.clockList.length;i++){
             if(this.clockList[i].active === true){
                 this.clockList[i].seconds++;
-                if(this.clockList[i].seconds >= 60){
-                    this.clockList[i].minutes++;
-                    this.clockList[i].seconds = 0;
-                }
-                if(this.clockList[i].minutes >= 60){
-                    this.clockList[i].hours++;
-                    this.clockList[i].minutes = 0;
-                }
                 if(typeof this.clockList[i].tick == 'function'){
-                    this.clockList[i].tick({hours:this.clockList[i].hours,minutes:this.clockList[i].minutes,seconds:this.clockList[i].seconds});
+                    this.clockList[i].tick(this.clockList[i].getTime());
                 }
             }
         }

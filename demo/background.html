@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background work</title>
+</head>
+<body>
+    <button id="view">View active time</button>
+    <script src="../dist/timer.js"></script>
+    <script>
+        const timer = new Timer();
+        const t = timer.Create(true);
+        const btnView = document.getElementById('view');
+        btnView.addEventListener('click',e=>{
+            const time = t.getTime();
+            time.seconds = (time.seconds<10)?'0'+time.seconds:time.seconds;
+            time.minutes = (time.minutes<10)?'0'+time.minutes:time.minutes;
+            time.hours = (time.hours<10)?'0'+time.hours:time.hours;
+            alert(`🕒 ${time.hours}:${time.minutes}:${time.seconds}`);
+        });
+    </script>
+</body>
+</html>
