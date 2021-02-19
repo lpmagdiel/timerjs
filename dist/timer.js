@@ -49,14 +49,24 @@ class Timer{
         }
         let proxy = new Proxy(clock,{
             set: function(target,promp,value){
-                if(target.active != value){
-                    target.active = value;
-                    target.context.Run();
+                switch(promp){
+                    case 'active':
+                        if(target.active != value){
+                            target.active = value;
+                            target.context.Run();
+                        }
+                        break;
+                    case 'tick':
+                        target.tick = value;
+                        break;
                 }
             }
         });
-        this.clockList.push(clock);
-        if(activate) this.Run(proxy.active);
+        if(activate==true && this.IsAllInactive()==true){
+            this.clockList.push(clock);
+            this.Run();
+        }
+        else this.clockList.push(clock);
         return proxy;
     }
     IsAllInactive(){
@@ -79,6 +89,5 @@ class Timer{
                 if(this.IsAllInactive()) window.clearInterval(this.runControl);
             },1000);
         }
-        
     }
 }
