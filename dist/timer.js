@@ -68,7 +68,6 @@ class Timer{
         if(this.IsAllInactive()) window.clearInterval(this.runControl);
         else{
             this.runControl = window.setInterval(()=>{
-                console.log('😀');
                 for (let i=0;i<this.clockList.length;i++){
                     if(this.clockList[i].active === true){
                         this.clockList[i].seconds++;
