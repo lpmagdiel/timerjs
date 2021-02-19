@@ -44,11 +44,20 @@ class Timer{
             reset: function(){
                 this.seconds=0;
             },
+            context:this,
             tick:null
         }
+        let proxy = new Proxy(clock,{
+            set: function(target,promp,value){
+                if(target.active != value){
+                    target.active = value;
+                    target.context.Run();
+                }
+            }
+        });
         this.clockList.push(clock);
-        if(activate) this.Run();
-        return this.clockList[this.clockList.length-1];
+        if(activate) this.Run(proxy.active);
+        return proxy;
     }
     IsAllInactive(){
         let status = false;
@@ -59,6 +68,7 @@ class Timer{
         if(this.IsAllInactive()) window.clearInterval(this.runControl);
         else{
             this.runControl = window.setInterval(()=>{
+                console.log('😀');
                 for (let i=0;i<this.clockList.length;i++){
                     if(this.clockList[i].active === true){
                         this.clockList[i].seconds++;
