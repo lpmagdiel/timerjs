@@ -36,7 +36,8 @@
             let temp = document.getElementsByTagName("template")[0];
             let t = timer.Create(true);
             temp.content.querySelector("p").id = 'id'+t.id;
-            t.tick = time=>{
+            t.tick = time =>{
+                //console.log(time);
                 document.getElementById('id'+t.id).innerText = `${time.hours}:${time.minutes}:${time.seconds}`;
             }
             let clon = temp.content.cloneNode(true);

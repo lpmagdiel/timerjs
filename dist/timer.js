@@ -1,13 +1,12 @@
+'use strict';
 /**
  * @constructor
  */
 class Timer{
     constructor(){
         this.clockList = [];
-        this.runControl = window.setInterval(()=>{
-            this.Run();
-        },1000);
-        console.log('🕒 Ready');
+        this.Run();
+        console.log('%c🕒 Ready', 'color: #196F3D');
     }
     /**
      * @returns {Array} Array of objects with the data of each watch
@@ -41,23 +40,36 @@ class Timer{
                 return {seconds:s,minutes:m,hours:h};
             },
             id: Date.now(),
-            active:activate,
+            active: activate,
             reset: function(){
                 this.seconds=0;
             },
             tick:null
         }
         this.clockList.push(clock);
+        if(activate) this.Run();
         return this.clockList[this.clockList.length-1];
     }
+    IsAllInactive(){
+        let status = false;
+        status = (this.clockList.length>0)?this.clockList.map(i=> status+i.active).reduce((a,b)=> a+b):0;
+        return (status>0)?false:true;
+    }
     Run(){
-        for (let i=0;i<this.clockList.length;i++){
-            if(this.clockList[i].active === true){
-                this.clockList[i].seconds++;
-                if(typeof this.clockList[i].tick == 'function'){
-                    this.clockList[i].tick(this.clockList[i].getTime());
+        if(this.IsAllInactive()) window.clearInterval(this.runControl);
+        else{
+            this.runControl = window.setInterval(()=>{
+                for (let i=0;i<this.clockList.length;i++){
+                    if(this.clockList[i].active === true){
+                        this.clockList[i].seconds++;
+                        if(typeof this.clockList[i].tick == 'function'){
+                            this.clockList[i].tick(this.clockList[i].getTime());
+                        }
+                    }
                 }
-            }
+                if(this.IsAllInactive()) window.clearInterval(this.runControl);
+            },1000);
         }
+        
     }
 }

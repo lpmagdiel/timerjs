@@ -13,7 +13,7 @@
         const timer = new Timer();
         const t = timer.Create(true);
         const counter = document.getElementById('counter');
-        t.tick = time=>{
+        t.tick = time =>{
             counter.innerText = `🕒 ${time.hours}:${time.minutes}:${time.seconds}`;
         }
     </script>
