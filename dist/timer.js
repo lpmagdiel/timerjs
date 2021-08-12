@@ -7,6 +7,11 @@ class Timer{
         this.clockList = [];
         this.Run();
         console.log('%c🕒 Ready', 'color: #196F3D');
+        this.fx = {
+            controller:0,
+            time: 1000,
+            fun:null
+        };
     }
     /**
      * @returns {Array} Array of objects with the data of each watch
@@ -89,5 +94,26 @@ class Timer{
                 if(this.IsAllInactive()) window.clearInterval(this.runControl);
             },1000);
         }
+    }
+    /**
+     * 
+     * @param {function} fun function loop
+     * @param {int} ms milliseconds default 1000
+     */
+    LoopFunction(fun,ms){
+        this.fx.fun = fun;
+        this.fx.time = ms || 1000;
+    }
+    /**
+     * 
+     */
+    LoopStart(){
+        this.fx.controller = window.setInterval(
+            this.fx.fun,
+            this.fx.time
+        );
+    }
+    LoopStop(){
+        window.clearInterval(this.fx.controller);
     }
 }

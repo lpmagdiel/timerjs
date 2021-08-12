@@ -11,13 +11,16 @@ Creates a new clock, receives an optional boolean parameter indicating whether t
 
 
 ## Attributes and functions del reloj
- - id       : int
- - active   : boolean
- - created  : boolean
- - getTime  : function
- - seconds  : int
- - tick     : function
- - reset    : function
+ - id             : int
+ - active         : boolean
+ - created        : boolean
+ - getTime        : function
+ - seconds        : int
+ - tick           : function
+ - reset          : function
+ - LoopFunction   : function
+ - LoopStart      : function
+ - LoopStop       : function
 
 ## reset function example
 
@@ -45,3 +48,16 @@ Creates a new clock, receives an optional boolean parameter indicating whether t
             alert("stop");
         }
     }
+## LoopFunction example
+
+    const timer = new Timer();
+
+    function HelloWorld() {
+        console.log('Hello World');
+    }
+
+    timer.LoopFunction(HelloWorld);
+    timer.LoopStart();
+
+    // stop loop in event or time
+    timer.LoopStop();
